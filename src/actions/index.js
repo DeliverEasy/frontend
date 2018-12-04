@@ -139,3 +139,57 @@ export function verifyToken(token) {
             }).catch(err => console.log("Error: ", err))
     }
 }
+
+export const FETCH_POSTS_REQUEST = 'FETCH_POSTS_REQUEST';
+export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
+export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE';
+
+function requestFetchPosts() {
+    return {
+        type: FETCH_POSTS_REQUEST,
+        isFetching: true,
+        posts: null
+    }
+}
+
+function receiveFetchPosts(posts) {
+    return {
+        type: FETCH_POSTS_SUCCESS,
+        isFetching: false,
+        posts: posts
+    }
+}
+
+function fetchPostsError(message) {
+    return {
+        type: FETCH_POSTS_FAILURE,
+        isFetching: false,
+        posts: null,
+        message
+    }
+}
+
+export function fetchPosts() {
+
+    let config = {
+        method: 'GET',
+    }
+
+    return dispatch => {
+
+        dispatch(requestFetchPosts);
+
+        return fetch('https://jsonplaceholder.typicode.com/posts', config)
+            .then(response =>
+                response.json().then(json => ({ json, response }))
+            ).then(({ json, response }) => {
+                if (!response.ok) {
+                    dispatch(fetchPostsError(json.non_field_errors[0]))
+                    return Promise.reject(json)
+                } else {
+                    console.log(json)
+                    dispatch(receiveFetchPosts(json))
+                }
+            }).catch(err => console.log("Error: ", err))
+    }
+}

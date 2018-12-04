@@ -2,7 +2,8 @@ import {
     LOGIN_REQUEST, LOGIN_SUCCESS,
     LOGIN_FAILURE, LOGOUT_SUCCESS,
     VERIFY_TOKEN_REQUEST, VERIFY_TOKEN_SUCCESS,
-    VERIFY_TOKEN_FAILURE
+    VERIFY_TOKEN_FAILURE, FETCH_POSTS_REQUEST,
+    FETCH_POSTS_SUCCESS, FETCH_POSTS_FAILURE
 } from '../actions'
 
 function authReducer(state = {
@@ -47,6 +48,22 @@ function authReducer(state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 isAuthenticated: false
+            })
+            case FETCH_POSTS_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                posts: null
+            })
+        case FETCH_POSTS_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                posts: action.posts
+            })
+        case FETCH_POSTS_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                posts: null,
+                message: action.message
             })
         default:
             return state
