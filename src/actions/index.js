@@ -18,7 +18,7 @@ function receiveLogin(user) {
         type: LOGIN_SUCCESS,
         isFetching: false,
         isAuthenticated: true,
-        id_token: user.id_token
+        token: user.token
     }
 }
 
@@ -80,7 +80,62 @@ function receiveLogout() {
 export function logoutUser() {
     return dispatch => {
         dispatch(requestLogout())
-        localStorage.removeItem('id_token')
+        localStorage.removeItem('token')
         dispatch(receiveLogout())
+    }
+}
+
+export const VERIFY_TOKEN_REQUEST = 'VERIFY_TOKEN_REQUEST';
+export const VERIFY_TOKEN_SUCCESS = 'VERIFY_TOKEN_SUCCESS';
+export const VERIFY_TOKEN_FAILURE = 'VERIFY_TOKEN_FAILURE';
+
+function requestVerifyToken() {
+    return {
+        type: VERIFY_TOKEN_REQUEST,
+        isFetching: true,
+        isAuthenticated: true
+    }
+}
+
+function receiveVerifyTokenSuccess() {
+    return {
+        type: VERIFY_TOKEN_SUCCESS,
+        isFetching: false,
+        isAuthenticated: true
+    }
+}
+
+function verifyError(message) {
+    return {
+        type: VERIFY_TOKEN_FAILURE,
+        isFetching: false,
+        isAuthenticated: false,
+        message
+    }
+}
+
+export function verifyToken(token) {
+
+    let config = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 'token': token })
+    }
+
+    return dispatch => {
+
+        dispatch(requestVerifyToken);
+
+        return fetch(BASE_URL + '/token-verify/', config)
+            .then(response =>
+                response.json().then(json => ({ json, response }))
+            ).then(({ json, response }) => {
+                if (!response.ok) {
+                    dispatch(verifyError(json.non_field_errors[0]))
+                    return Promise.reject(json)
+                } else {
+                    dispatch(receiveVerifyTokenSuccess())
+                }
+            }).catch(err => console.log("Error: ", err))
     }
 }
