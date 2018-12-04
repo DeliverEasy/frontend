@@ -20,7 +20,6 @@ class NavBar extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state.isAuthenticated);
     return { isAuthenticated: state.isAuthenticated }
 }
 
