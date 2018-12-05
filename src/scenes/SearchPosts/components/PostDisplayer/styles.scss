@@ -1,8 +1,33 @@
 .post-displayer {
-    background-color: white;
-    border-radius: 5px;
     width: fit-content;
-    padding: 2em 3em;
-    margin: 0 2em;
+    max-width: 300px;
+    margin: 0 auto;
     margin-bottom: 3%;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+    transition: 0.5s ease-in-out;
+    background-color: white;
+
+    h4 {
+        padding: 0 1em;
+    }
+}
+
+.post-displayer:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    transition: 0.5s ease-in-out; 
+}
+
+.post-displayer-image {
+    min-height: 100px;
+    max-height: 250px;
+    background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.post-displayer-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
 }
