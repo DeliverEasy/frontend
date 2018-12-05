@@ -7,18 +7,30 @@ import SearchBar from './components/SearchBar';
 import PostDisplayer from './components/PostDisplayer';
 
 class SearchPosts extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            regex: ''
+        };
+    }
 
     componentDidMount() {
         this.props.fetchPosts();
     }
 
+    handle_search = e => {
+        const value = e.target.value;
+        this.setState({regex: value});
+    };
+
     render() {
         if (this.props.posts) {
+            const posts = this.props.posts.filter(({title}) => title.match(new RegExp(this.state.regex))).map(post => <PostDisplayer title={post.title} />);
             return (
                 <div>
-                    <SearchBar />
-                    <div>
-                        {this.props.posts.map(post => <PostDisplayer />)}
+                    <SearchBar onChange={this.handle_search}/>
+                    <div className='post-container'>
+                        {posts}
                     </div>
                 </div>
             );
