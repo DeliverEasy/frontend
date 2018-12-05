@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions';
 import './styles.scss';
-import LoginForm from '../LoginForm';
 
 class NavBar extends Component {
 
     render() {
         if (this.props.isAuthenticated) {
             return (
-                <div>
-                    {localStorage.token}
-                    <button onClick={e => this.props.logoutUser()}>Logout</button>
+                <div className='nav-bar'>
+                    <button onClick={e => this.props.logoutUser()}>LO</button>
                 </div>);
         } else {
-            return (<div><LoginForm /></div>);
+            return (<div className='nav-bar'>Not Authenticated</div>);
         }
     }
 }
