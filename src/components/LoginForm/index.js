@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import loginUser from '../../actions';
 import './styles.scss';
 
+import Input from '../Input';
+import Button from '../Button';
+
 class LoginForm extends Component {
 
     constructor(props) {
@@ -33,14 +36,14 @@ class LoginForm extends Component {
 
     render() {
         return (
-            <div>
-                <form>
-                    <input name="username" type="text" placeholder="Email" value={this.state.username} onChange={this.handle_change} />
-                    <input name="password" type="password" placeholder="Password" onChange={this.handle_change} value={this.state.password} />
-                    <button type="button" onClick={e => this.handle_login(e, this.state)}>Login</button>
+            <div className="login-form">
+                <form className="form-elements">
+                    <Input name="username" type="text" placeholder="Email" onChange={this.handle_change} />
+                    <Input name="password" type="password" placeholder="Password" onChange={this.handle_change} />
+                    <Button text="Login" onClick={e => this.handle_login(e, this.state)} />
                 </form>
-
-            </div>);
+            </div>
+            );
     }
 }
 
