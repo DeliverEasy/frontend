@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
 
-let store = createStoreWithMiddleware(authReducer)
+let store = createStoreWithMiddleware(authReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
     <Provider store={store}>
