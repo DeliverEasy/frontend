@@ -2,7 +2,7 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://127.0.0.1:8000/api/v1';
 
 function requestLogin(creds) {
     return {
@@ -179,7 +179,7 @@ export function fetchPosts() {
 
         dispatch(requestFetchPosts);
 
-        return fetch('https://jsonplaceholder.typicode.com/posts', config)
+        return fetch(BASE_URL + '/post/list/', config)
             .then(response =>
                 response.json().then(json => ({ json, response }))
             ).then(({ json, response }) => {
