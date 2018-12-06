@@ -6,3 +6,39 @@
     left: 0%;
     background-color: #0d0630ff;
 }
+
+.nav-bar-navigation-button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-bar-button {
+    width: 100%;
+    height: width;
+    border: none;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    
+    i {
+        font-size: 3em;
+    }
+}
+
+.active {
+    background-color: teal;
+}
+
+.nav-bar-button:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.nav-bar-account-button-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
