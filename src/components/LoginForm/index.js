@@ -37,11 +37,11 @@ class LoginForm extends Component {
     render() {
         return (
             <div className="login-form">
-                <form className="form-elements">
+                <div className="form-elements">
                     <Input name="username" type="text" placeholder="Email" onChange={this.handle_change} />
                     <Input name="password" type="password" placeholder="Password" onChange={this.handle_change} />
                     <Button text="Login" onClick={e => this.handle_login(e, this.state)} />
-                </form>
+                </div>
             </div>
             );
     }
